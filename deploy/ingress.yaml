@@ -1,0 +1,19 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1beta1
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: cluster-ca
+  name: ohif-viewer
+spec:
+  tls:
+    - hosts:
+        - ohif-viewer.0a0527d6.nip.io
+      secretName: ohif-viewer-ingress-cert
+  rules:
+    - host: ohif-viewer.0a0527d6.nip.io
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: viewer
+              servicePort: 80

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: viewer
+spec:
+  selector:
+    matchLabels:
+      app: viewer
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: viewer
+    spec:
+      containers:
+        - name: viewer
+          image: jeesmon/ohif-viewer:v4.9.8.14493
+          ports:
+            - containerPort: 80
+          env:
+            - name: APP_CONFIG
+              value: /etc/viewer/app-config.js
+          volumeMounts:
+            - name: app-config
+              mountPath: /etc/viewer
+      volumes:
+        - name: app-config
+          configMap:
+            name: app-config
+            items:
+              - key: app-config.js
+                path: app-config.js
