@@ -1,4 +1,4 @@
-FROM ohif/viewer:v4.9.8.14493
+FROM ohif/viewer:v2.9.0.7055
 
 COPY entrypoint-wrapper.sh /usr/src/
 RUN chmod 755 /usr/src/entrypoint-wrapper.sh
