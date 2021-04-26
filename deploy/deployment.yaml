@@ -14,19 +14,24 @@ spec:
     spec:
       containers:
         - name: viewer
-          image: jeesmon/ohif-viewer:v4.9.8.14493
+          image: jeesmon/ohif-viewer:v2.9.0.7055
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           env:
             - name: APP_CONFIG
               value: /etc/viewer/app-config.js
+            - name: NGINX_CONFIG
+              value: /etc/viewer/nginx.conf
           volumeMounts:
-            - name: app-config
+            - name: viewer-config
               mountPath: /etc/viewer
       volumes:
-        - name: app-config
+        - name: viewer-config
           configMap:
-            name: app-config
+            name: viewer-config
             items:
               - key: app-config.js
                 path: app-config.js
+              - key: nginx.conf
+                path: nginx.conf
